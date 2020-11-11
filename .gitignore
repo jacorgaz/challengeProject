@@ -1,0 +1,7 @@
+.idea/
+/TestOutput/screenshots/
+test-output/*
+target/*
+TestOutput/*
+*.class
+/seleniumTemplate.iml

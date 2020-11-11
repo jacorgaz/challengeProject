@@ -1,0 +1,7 @@
+#!groovy
+
+@Library("jenkins-scripts@feature/qaBrunomiumUI")
+import com.mo2o.ci.workflow.BrunomiumWorkflow
+
+def workflow = new BrunomiumWorkflow()
+workflow.init(this)

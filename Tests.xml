@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite"  parallel="tests" thread-count="6">
+    <test name="com.firefox" parallel="methods">
+        <parameter name="browser" value="firefoxMac"/>
+        <groups>
+            <run>
+                <include name="Smoke"/>
+                <include name="Regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.Regression"></class>
+        </classes>
+    </test>
+    <test name="com.chrome" parallel="methods">
+        <parameter name="browser" value="chromeMac"/>
+        <groups>
+            <run>
+                <include name="Smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.Regression"></class>
+        </classes>
+    </test>
+</suite>
