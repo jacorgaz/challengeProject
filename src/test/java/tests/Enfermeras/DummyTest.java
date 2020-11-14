@@ -18,7 +18,10 @@ public class DummyTest extends BaseTest {
 
     @Test(retryAnalyzer = Retry.class, groups = {"Regression"})
     public void test_TC_001_Validaciones_login() throws InterruptedException {
-        System.out.println("EL test es test_TC_001_Validaciones_login");
+        homePage.closeCookiesBanner();
+        homePage.selectProduct();
+        homePage.userClickOnCart();
+
     }
 
     @Test(retryAnalyzer = Retry.class, groups = {"Regression"})

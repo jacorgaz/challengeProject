@@ -13,6 +13,7 @@ public class PropertyManager {
     private static String propertyFilePath = System.getProperty("user.dir") + "/src/test/java/resources/configuration.properties";
     private static String videoPath = System.getProperty("user.dir") + "/src/test/java/resources/video.properties";
     private static String environment;
+    private static String numberOfItemsToPurchase;
     private static String browser;
     private static String headless = System.getProperty("headless");
     private static String threads;
@@ -36,9 +37,11 @@ public class PropertyManager {
     private void loadData() {
         //Declare a properties object
         Properties prop = new Properties();
+
         //Read configuration.properties file
         try {
-            prop.load(new FileInputStream(videoPath));
+            prop.load(new FileInputStream(propertyFilePath));
+            //prop.load(this.getClass().getClassLoader().getResourceAsStream("configuration.properties"));
         } catch (IOException e) {
             System.out.println("Configuration properties file cannot be found");
         }
@@ -51,6 +54,7 @@ public class PropertyManager {
             if(headless==null){
                 headless= "false";
             }
+            numberOfItemsToPurchase = prop.getProperty("numberOfItemsToPurchase");
             environment = System.getProperty("dev.env");
             url = System.getProperty("base.url");
         }else {
@@ -105,4 +109,9 @@ public class PropertyManager {
             return PropertyManager.getInstance().getBrowser();
         }
     }
+
+    public  String getNumberOfItemsToPurchase() {
+        return numberOfItemsToPurchase;
+    }
+
 }

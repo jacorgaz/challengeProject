@@ -165,7 +165,7 @@
             <id>dev</id>
             <properties>
                 <dev.env>dev</dev.env>
-                <base.url>https://sanitas-poc-dev.mo2o.com</base.url>
+                <base.url>https://www.zooplus.es/</base.url>
             </properties>
         </profile>
         <profile>

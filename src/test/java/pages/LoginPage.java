@@ -3,7 +3,6 @@ package pages;
 import data.DataModel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.DriverManager;
 
@@ -19,13 +18,13 @@ public class LoginPage extends BaseCommands {
     private void login(DataModel.LoginTestData userData ) throws InterruptedException {
         enterText(textFieldUserName, userData.userName);
         enterText(textFieldPass, userData.userPassword);
-        click(buttonSubmit);
+        clickElement(buttonSubmit);
         /** No idea but after clicking on Submit teh text boxes  are automatically cleared */
         if(isElementDisplayed(textFieldUserName,3)){
             if(isTextFieldCleared(textFieldUserName)){
                 enterText(textFieldUserName, userData.userName);
                 enterText(textFieldPass, userData.userPassword);
-                click(buttonSubmit);
+                clickElement(buttonSubmit);
             }
         }
     }

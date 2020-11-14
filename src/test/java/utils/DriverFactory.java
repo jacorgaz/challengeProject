@@ -42,10 +42,10 @@ public class DriverFactory {
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeLinuxOptions = new ChromeOptions();
                     chromeLinuxOptions.setCapability("browserName", "chrome");
-                    chromeLinuxOptions.setCapability("version", "latest");
+                    chromeLinuxOptions.setCapability("version", "80.0");
                     chromeLinuxOptions.setCapability("enableVNC", true);
                     chromeLinuxOptions.setCapability("enableVideo", true);
-                    driver = new RemoteWebDriver(URI.create("http://10.1.0.41:4444/wd/hub").toURL(),
+                    driver = new RemoteWebDriver(URI.create("http://192.168.1.110:4444/wd/hub").toURL(),
                             chromeLinuxOptions);
                     OptionsManager.getChromeOptions();
                     driver.manage().window().maximize();

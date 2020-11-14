@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import utils.Constants;
 
 public class DinamicallyLoadedPage extends BaseCommands {
 
@@ -9,7 +8,7 @@ public class DinamicallyLoadedPage extends BaseCommands {
     By buttonStart=  By.xpath("//*[@id=\"start\"]/button");
 
     public void userVerifyDynamicText() throws InterruptedException {
-        click(buttonStart);
+        clickElement(buttonStart);
         waitFluentElement(textHelloWorld,"Hello World!");
     }
 }

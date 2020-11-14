@@ -11,10 +11,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pages.AddPatientPage;
 import pages.BasePage;
-import pages.CamerasListPage;
-import pages.LoginPage;
+import pages.CartPage;
+import pages.HomePage;
+import pages.ProductPage;
 import utils.*;
 import java.io.File;
 import java.io.IOException;
@@ -35,9 +35,15 @@ public class BaseTest extends BasePage {
     protected static String headless = PropertyManager.getInstance().getHeadlessAutomation();
     protected static boolean automation = PropertyManager.getInstance().getAutomation();
 
-    public LoginPage loginPage;
-    public CamerasListPage camerasListPage;
-    public AddPatientPage addPatientPage;
+
+    public static ProductPage getHomePage() {
+        return productPage;
+    }
+
+    public static HomePage homePage;
+    public static ProductPage productPage;
+    public static CartPage cartPage;
+
 
     private void configScreenShot(){
         File screenshotDirectory = new File("./screenshots");
@@ -93,14 +99,14 @@ public class BaseTest extends BasePage {
             createNewDriverInstance(browser);
             System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] ("+ getBrowserName()+Thread.currentThread().getId()+") ==> test "+ ExtentReportManager.getTestName()+context.getName()+ " has started"+ (char)27 + "[39m");
             if(DOCKER_BROWSERS.contains(getBrowserName())){
-                String urlLive = "http://10.1.0.41:8080/#/sessions/"+DriverManager.getDriver().getSessionId();
+                String urlLive = "http://192.168.1.110:8080/#/sessions/"+DriverManager.getDriver().getSessionId();
                 System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] (Ver la sesión LIVE en  "+ urlLive);
             }
             DriverManager.getDriver().navigate().to(url);
             getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            loginPage = new LoginPage();
-            camerasListPage= new CamerasListPage();
-            addPatientPage= new AddPatientPage();
+            homePage = new HomePage();
+            productPage = new ProductPage();
+
         }catch (Exception e){
             ExtentReportManager.getExtentTest().info("Error en beforeMethod "+ e);
             setFailExecutionStatus(true);

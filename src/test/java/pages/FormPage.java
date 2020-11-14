@@ -1,7 +1,6 @@
 package pages;
 
 import com.aventstack.extentreports.ExtentTest;
-import data.Data;
 import data.DataModel;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -18,7 +17,7 @@ public class FormPage extends BaseCommands {
     public void logIn(String username, String pass){
         enterText(textFieldUser, username);
         enterText(textFieldPass, username);
-        click(buttonLogIn);
+        clickElement(buttonLogIn);
     }
 
     public void userVerifyLogIn(String username, String pass){

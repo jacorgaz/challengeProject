@@ -144,11 +144,11 @@ public class CamerasListPage extends BaseCommands {
 
     private void clickSaveButton(int index) {
         findElementIndex(buttonSave,index).click();
-        click(buttonAccept);
+        clickElement(buttonAccept);
     }
 
     public void userLogOut(){
-        click(buttonLogout);
+        clickElement(buttonLogout);
     }
 
     private void enterTextAndSaveInAllRoomNumber(){
@@ -328,8 +328,8 @@ public class CamerasListPage extends BaseCommands {
     public void userVerifyUnassignedConditionBeforeLogout(DataModel.LoginTestData userData) throws InterruptedException {
         for(int i = 0; i< getNumberOfTextFieldsRoomNumberAreDisplayed(); i++){
             clearTextCharacterByCharacter(findElementIndex(textFieldsRoomNumber,i));
-            click(buttonSave);
-            click(buttonAccept);
+            clickElement(buttonSave);
+            clickElement(buttonAccept);
             getText(findElementIndex(textFieldsRoomNumber,i)).equalsIgnoreCase("DESASIGANADA");
         }
     }

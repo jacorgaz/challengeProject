@@ -10,7 +10,6 @@ import utils.Constants;
 import utils.DriverManager;
 import utils.ExtentReportManager;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,7 +29,9 @@ public class BaseCommands {
 
     public static final String testDataExcelFileName = "testData.xlsx";
 
-
+    public void navigateBack() {
+        driver.navigate().back();
+    }
     public void waitForElementDisplayed(By by, int timeInterval) {
         WebDriver driver = DriverManager.getDriver();
         try {
@@ -205,6 +206,9 @@ public class BaseCommands {
         return driver.findElements(locator).get(index);
     }
 
+
+
+
     public WebElement findElementIndex(List<WebElement> locator, int index) {
         return locator.get(index);
     }
@@ -284,15 +288,35 @@ public class BaseCommands {
         }
         return "";
     }
+    public String getValue(By locator) {
+        try {
+            return driver.findElement(locator).getAttribute("value");
+        } catch (TimeoutException e) {
+            extentTest.error("Element identified by " + locator.toString() + " was not found after 20 seconds");
+        }
+        return "";
+    }
 
     public WebElement find(By locator) {
         return driver.findElement(locator);
     }
 
-    public void click(By locator) {
+    public void clickElement(By locator) {
         try {
             (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
             driver.findElement(locator).click();
+        } catch (StaleElementReferenceException e) {
+            // simply retry finding the element in the refreshed DOM
+            driver.findElement(locator).click();
+        } catch (TimeoutException e) {
+            extentTest.info("Element identified by " + locator.toString() + " was not clickable after 10 seconds");
+        }
+    }
+
+    public void clickElementByIndex(By locator, int index) {
+        try {
+            (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
+            driver.findElements(locator).get(index).click();
         } catch (StaleElementReferenceException e) {
             // simply retry finding the element in the refreshed DOM
             driver.findElement(locator).click();
@@ -310,11 +334,11 @@ public class BaseCommands {
     public void selectCheckBox(By checkBox, boolean select) {
         if(select) {
             if (!isElementSelected(checkBox)) ;
-            click(checkBox);
+            clickElement(checkBox);
         }
         if(!select){
             if (isElementSelected(checkBox));
-            click(checkBox);
+            clickElement(checkBox);
         }
     }
 
@@ -478,7 +502,7 @@ public class BaseCommands {
     public static String getSelenoidVideos(){
         RemoteWebDriver driver = DriverManager.getDriver();
         String result;
-        String path= Constants.SELENOIDDOCKERVIDEO+"/video/"+driver.getSessionId()+".mp4";
+        String path= Constants.SELENOID_DOCKER_VIDEO +"/video/"+driver.getSessionId()+".mp4";
         result =  "<video width=\"360\" height=\"640\" controls>\n" +
                 "<source src="+path+" type=\"video/mp4\">\n" +
                 "</video>";
