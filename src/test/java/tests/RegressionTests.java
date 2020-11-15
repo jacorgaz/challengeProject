@@ -2,7 +2,6 @@ package tests;
 
 import org.testng.annotations.Test;
 import utils.Retry;
-
 import java.io.IOException;
 
 public class RegressionTests extends  BaseTest{

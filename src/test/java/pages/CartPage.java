@@ -47,7 +47,6 @@ public class CartPage extends BaseCommands {
 
     }
 
-
     /**
      * This method is used to verify that product name and units selected in product page,
         are the same displayed on cart screen.

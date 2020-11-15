@@ -18,29 +18,28 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
+
+import static pages.BaseCommands.getSelenoidVideos;
 import static utils.Constants.DOCKER_BROWSERS;
 import static utils.DriverManager.*;
 import static utils.GetScreenShot.capture;
 import static utils.GlobalVariables.setFailExecutionStatus;
 
-public class BaseTest extends BasePage {
-    private static ExtentReports extentReport = new ExtentReports();
+public class BaseTest {
+    private static final ExtentReports EXTENT_REPORTS = new ExtentReports();
     private ExtentTest parentTest;
-    private static final String browserExecution=  PropertyManager.getInstance().getBrowser();
-    private static String environment = PropertyManager.getInstance().getEnvironment();
+    private static final String BROWSER_EXECUTION =  PropertyManager.getInstance().getBrowser();
     private static String url = PropertyManager.getInstance().getUrl();
     protected static String headless = PropertyManager.getInstance().getHeadlessAutomation();
     protected static boolean automation = PropertyManager.getInstance().getAutomation();
-
-
-    public static ProductPage getHomePage() {
-        return productPage;
-    }
 
     public static HomePage homePage;
     public static ProductPage productPage;
     public static CartPage cartPage;
     public static PointsProgramPage pointsProgramPage;
+    public static ProductPage getHomePage() {
+        return productPage;
+    }
 
 
     private void configScreenShot(){
@@ -69,7 +68,7 @@ public class BaseTest extends BasePage {
     public void beforeSuite() {
         configScreenShot();
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("./TestOutput/SuiteTestReport.html");
-        extentReport.attachReporter(htmlReporter);
+        EXTENT_REPORTS.attachReporter(htmlReporter);
         htmlReporter.loadConfig("./extent-config.xml");
         htmlReporter.config().setDocumentTitle("Selenium Extent Report");
     }
@@ -77,7 +76,7 @@ public class BaseTest extends BasePage {
     @Parameters(value = {"browser"})
     @BeforeClass
     public void beforeClass(@Optional String browser, ITestContext context, Method method) {
-        parentTest =extentReport.createTest("Execution for "+ browser +" "+context.getName());
+        parentTest = EXTENT_REPORTS.createTest("Execution for "+ browser +" "+context.getName());
     }
 
     @BeforeMethod
@@ -91,8 +90,8 @@ public class BaseTest extends BasePage {
             createNewDriverInstance(browser);
             System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] ("+ getBrowserName()+Thread.currentThread().getId()+") ==> test "+ ExtentReportManager.getTestName()+context.getName()+ " has started"+ (char)27 + "[39m");
             if(DOCKER_BROWSERS.contains(getBrowserName())){
-                String urlLive = "http://192.168.1.110:8080/#/sessions/"+DriverManager.getDriver().getSessionId();
-                System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] (Ver la sesión LIVE en  "+ urlLive);
+                String urlLive = Constants.SELENOID_DOCKER_LIVE_STREAMING+DriverManager.getDriver().getSessionId();
+                System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] (Live Streaming in "+ urlLive);
             }
             DriverManager.getDriver().navigate().to(url);
             getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -161,7 +160,7 @@ public class BaseTest extends BasePage {
         String browserToExecute = "";
         DesiredCapabilities  capabilities = new DesiredCapabilities();
         if(mode.equalsIgnoreCase("debug")){
-            browserToExecute = browserExecution;
+            browserToExecute = BROWSER_EXECUTION;
         }else {
             browserToExecute=browser;
         }
@@ -172,6 +171,6 @@ public class BaseTest extends BasePage {
 
     @AfterSuite
     public void afterSuite() {
-        extentReport.flush();
+        EXTENT_REPORTS.flush();
     }
 }
