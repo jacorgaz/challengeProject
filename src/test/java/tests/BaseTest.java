@@ -11,10 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pages.BasePage;
-import pages.CartPage;
-import pages.HomePage;
-import pages.ProductPage;
+import pages.*;
 import utils.*;
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +40,7 @@ public class BaseTest extends BasePage {
     public static HomePage homePage;
     public static ProductPage productPage;
     public static CartPage cartPage;
+    public static PointsProgramPage pointsProgramPage;
 
 
     private void configScreenShot(){
@@ -101,6 +99,7 @@ public class BaseTest extends BasePage {
             homePage = new HomePage();
             productPage = new ProductPage();
             cartPage = new CartPage();
+            pointsProgramPage = new PointsProgramPage();
 
         }catch (Exception e){
             ExtentReportManager.getExtentTest().info("Error en beforeMethod "+ e);

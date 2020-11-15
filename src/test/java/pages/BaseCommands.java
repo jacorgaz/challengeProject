@@ -206,13 +206,6 @@ public class BaseCommands {
         return driver.findElements(locator).get(index);
     }
 
-
-
-
-    public WebElement findElementIndex(List<WebElement> locator, int index) {
-        return locator.get(index);
-    }
-
     public int findElementSize(By locator) {
         return driver.findElements(locator).size();
     }
@@ -231,6 +224,7 @@ public class BaseCommands {
     public List<WebElement> findElementsChild(By locator, By childClassName) {
         return driver.findElement(locator).findElements(childClassName);
     }
+
 
     public void changeToParentFrame() {
         driver.switchTo().parentFrame();
