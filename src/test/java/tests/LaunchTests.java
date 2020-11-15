@@ -137,7 +137,7 @@ public class LaunchTests {
             List<XmlClass> classes = new ArrayList<>();
             List<XmlInclude> includeMethods = new ArrayList<>();
             XmlClass testClass = new XmlClass(getClass(testSuite).getName());
-            //XmlClass testClass = new XmlClass("tests.Enfermeras.DummyTest");
+            //XmlClass testClass = new XmlClass("tests.DummyTest");
             for (String methods : getMethodsInClass(testSuite)) {
                 includeMethods.add(new XmlInclude(methods));
                  //includeMethods.add(new XmlInclude("test_TC_002_Validaciones_habitaciones"));

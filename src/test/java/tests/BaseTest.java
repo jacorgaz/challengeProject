@@ -69,14 +69,8 @@ public class BaseTest extends BasePage {
 
     @BeforeSuite()
     public void beforeSuite() {
-        /*//configExtentReportAndKlovServer(KLOVIP,KLOVPORT,PROJECTNAME, extentReport);
-        ExtentKlovReporter klov = new ExtentKlovReporter();
-        klov.initMongoDbConnection(KLOVIP, KLOVPORT);
-        klov.setProjectName(PROJECTNAME+"_"+environment);
-        klov.initKlovServerConnection(KLOVURL);*/
         configScreenShot();
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("./TestOutput/SuiteTestReport.html");
-        //extentReport.attachReporter(htmlReporter, klov);
         extentReport.attachReporter(htmlReporter);
         htmlReporter.loadConfig("./extent-config.xml");
         htmlReporter.config().setDocumentTitle("Selenium Extent Report");
@@ -106,6 +100,7 @@ public class BaseTest extends BasePage {
             getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             homePage = new HomePage();
             productPage = new ProductPage();
+            cartPage = new CartPage();
 
         }catch (Exception e){
             ExtentReportManager.getExtentTest().info("Error en beforeMethod "+ e);

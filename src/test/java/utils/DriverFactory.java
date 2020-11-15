@@ -115,10 +115,9 @@ public class DriverFactory {
                     break;
                 default:
                     setFailExecutionStatus(true);
-                    System.out.println("Opening Browser...."+browser);
+                    ExtentReportManager.getExtentTest().info("El browser no ha sido encontrado " + browser);
                     break;
             }
-            ExtentReportManager.getExtentTest().info("El browser no ha sido encontrado " + browser);
             setFailExecutionStatus(false);
             return driver;
 

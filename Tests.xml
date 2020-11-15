@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="tests.Regression"></class>
+            <class name="tests.RegressionTests"></class>
         </classes>
     </test>
     <test name="com.chrome" parallel="methods">
@@ -21,7 +21,7 @@
             </run>
         </groups>
         <classes>
-            <class name="tests.Regression"></class>
+            <class name="tests.RegressionTests"></class>
         </classes>
     </test>
 </suite>

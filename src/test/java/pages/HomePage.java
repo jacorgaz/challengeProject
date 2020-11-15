@@ -2,40 +2,55 @@ package pages;
 
 import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import tests.BaseTest;
-import utils.DriverManager;
 import utils.ExtentReportManager;
+import utils.GetScreenShot;
 import utils.PropertyManager;
+import java.io.IOException;
 
 
 public class HomePage extends BaseCommands {
-    private final ExtentTest extentReport = ExtentReportManager.getExtentTest();
-    private final WebDriver page = DriverManager.getDriver();
-    private final int numberOfItemsToAddToChart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase());
-    private int numberOfItemsAddedToChart=0;
+    /*
+     * Page Elements
+     */
     private final By LIST_PRODUCTS = By.xpath("//*[contains(@class, 'product-box lslide')]");
     private final By BUTTON_CLOSE_COOKIES = By.xpath("//*[@class='close__banner icon-close']");
     private final By BUTTON_CART = By.id("checkoutBtnCart");
+    private final By TEXT_UNITS_ADDED_TO_SHOPPING_CART = By.id("cart_quantity");
 
-    public void closeCookiesBanner() {
+    ExtentTest extentTest = ExtentReportManager.getExtentTest();
+    private int numberOfItemsAddedToChart=0;
+
+    public void userCloseCookiesBanner() {
         clickElement(BUTTON_CLOSE_COOKIES);
     }
 
-    public void userClickOnCart () {
-        clickElement(BUTTON_CART);
-    }
 
-    public void selectProduct() {
+    public void userAddProductsToShoppingCart() throws IOException {
+        int numberOfItemsToAddToChart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase()); //Number of products wished in configuration.properties
         ProductPage productPage = BaseTest.getHomePage();
         while (numberOfItemsAddedToChart<numberOfItemsToAddToChart) {
             clickElementByIndex(LIST_PRODUCTS, numberOfItemsAddedToChart);
-            productPage.addProductQuantity();
-            productPage.addToShoppingCart();
+            productPage.addNumberOfUnitsToProduct();
+            productPage.addProductToShoppingCart();
             numberOfItemsAddedToChart++;
             navigateBack();
-        }
-        productPage.userVerifyNumberOfUnitsAddedToShoppingCart();
+        };
     }
 
+    /**
+     * This method is used to Verify that the number of total units added,
+     * is the same as the quantity displayed in cart.
+     */
+
+    public void userVerifyInBubbleCartNumberOfUnitsAdded() {
+        ProductPage productPage = BaseTest.getHomePage();
+        int numberOfUnitsAddedInCart =  Integer.parseInt(getText(TEXT_UNITS_ADDED_TO_SHOPPING_CART));
+        Assert.assertEquals(productPage.getUnitsOfProductAddedToShoppingCart(), numberOfUnitsAddedInCart);
+    }
+
+    public void useGoToCart() {
+        clickElement(BUTTON_CART);
+    }
 }
