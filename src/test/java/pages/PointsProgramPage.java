@@ -3,14 +3,8 @@ package pages;
 import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import tests.BaseTest;
 import utils.DriverManager;
 import utils.ExtentReportManager;
-import utils.GetScreenShot;
-import utils.PropertyManager;
-
-import java.io.IOException;
-import java.util.HashMap;
 
 
 public class PointsProgramPage extends BaseCommands {

@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import utils.Retry;
 import java.io.IOException;
 
-public class RegressionTests extends  BaseTest{
+public class RegressionTests extends BaseTestController {
 
     @Test(description = "Check that a customer can add an article or articles to the cart",
             retryAnalyzer = Retry.class)

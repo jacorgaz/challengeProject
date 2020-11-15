@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Selenium" verbose="1">
-    <test name="Example test">
-        <classes>
-            <class name="tests.LaunchTests"/>
-        </classes>
-    </test>
-</suite>

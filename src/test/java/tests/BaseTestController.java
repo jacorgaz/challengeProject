@@ -14,7 +14,6 @@ import org.testng.annotations.*;
 import pages.*;
 import utils.*;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
@@ -25,13 +24,13 @@ import static utils.DriverManager.*;
 import static utils.GetScreenShot.capture;
 import static utils.GlobalVariables.setFailExecutionStatus;
 
-public class BaseTest {
+public class BaseTestController {
     private static final ExtentReports EXTENT_REPORTS = new ExtentReports();
     private ExtentTest parentTest;
     private static final String BROWSER_EXECUTION =  PropertyManager.getInstance().getBrowser();
-    private static String url = PropertyManager.getInstance().getUrl();
+    private static final String URL = PropertyManager.getInstance().getUrl();
     protected static String headless = PropertyManager.getInstance().getHeadlessAutomation();
-    protected static boolean automation = PropertyManager.getInstance().getAutomation();
+
 
     public static HomePage homePage;
     public static ProductPage productPage;
@@ -76,24 +75,24 @@ public class BaseTest {
     @Parameters(value = {"browser"})
     @BeforeClass
     public void beforeClass(@Optional String browser, ITestContext context, Method method) {
-        parentTest = EXTENT_REPORTS.createTest("Execution for "+ browser +" "+context.getName());
+        parentTest = EXTENT_REPORTS.createTest("Execution for "+ BROWSER_EXECUTION +" "+context.getName());
     }
 
     @BeforeMethod
     @Parameters(value={"browser"})
-    public void beforeMethod(Method method, @Optional String browser, ITestContext context) throws MalformedURLException {
+    public void beforeMethod(Method method, @Optional String browser, ITestContext context) {
         try{
             ExtentReportManager.setTestName(method.getName());
             ExtentReportManager.getTestName();
             ExtentTest extentTest = parentTest.createNode(ExtentReportManager.getTestName());
             ExtentReportManager.setExtentTest(extentTest);
-            createNewDriverInstance(browser);
+            createNewDriverInstance();
             System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] ("+ getBrowserName()+Thread.currentThread().getId()+") ==> test "+ ExtentReportManager.getTestName()+context.getName()+ " has started"+ (char)27 + "[39m");
             if(DOCKER_BROWSERS.contains(getBrowserName())){
                 String urlLive = Constants.SELENOID_DOCKER_LIVE_STREAMING+DriverManager.getDriver().getSessionId();
                 System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] (Live Streaming in "+ urlLive);
             }
-            DriverManager.getDriver().navigate().to(url);
+            DriverManager.getDriver().navigate().to(URL);
             getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             homePage = new HomePage();
             productPage = new ProductPage();
@@ -107,7 +106,7 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void afterMethod(ITestResult result, Method method) throws IOException {
+    public void afterMethod(ITestResult result, Method method) {
         ExtentTest extentTest = ExtentReportManager.getExtentTest();
         try
         {
@@ -155,15 +154,10 @@ public class BaseTest {
         }
     }
 
-    private void createNewDriverInstance(String browser) throws MalformedURLException {
-        String mode = System.getProperty("mode");
+    private void createNewDriverInstance() throws MalformedURLException {
         String browserToExecute = "";
         DesiredCapabilities  capabilities = new DesiredCapabilities();
-        if(mode.equalsIgnoreCase("debug")){
-            browserToExecute = BROWSER_EXECUTION;
-        }else {
-            browserToExecute=browser;
-        }
+        browserToExecute = BROWSER_EXECUTION;
         capabilities.setCapability(CapabilityType.BROWSER_NAME, browserToExecute);
         setWebDriver(DriverFactory.createNewDriverInstance(browserToExecute));
         setBrowserName(browserToExecute);

@@ -3,7 +3,7 @@ package pages;
 import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import tests.BaseTest;
+import tests.BaseTestController;
 import utils.DriverManager;
 import utils.ExtentReportManager;
 import utils.GetScreenShot;
@@ -22,7 +22,7 @@ public class CartPage extends BaseCommands {
 
     HashMap<String , Integer> productNameAndUnitsInCart = new HashMap<>();
     ExtentTest extentTest = ExtentReportManager.getExtentTest();
-    ProductPage productPage = BaseTest.getHomePage();
+    ProductPage productPage = BaseTestController.getHomePage();
     private final int numberOfItemsToAddToCart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase());
 
     /**

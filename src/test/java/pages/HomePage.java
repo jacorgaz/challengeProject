@@ -3,9 +3,8 @@ package pages;
 import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import tests.BaseTest;
+import tests.BaseTestController;
 import utils.ExtentReportManager;
-import utils.GetScreenShot;
 import utils.PropertyManager;
 import java.io.IOException;
 
@@ -29,7 +28,7 @@ public class HomePage extends BaseCommands {
 
     public void userAddProductsToShoppingCart() throws IOException {
         int numberOfItemsToAddToChart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase()); //Number of products wished in configuration.properties
-        ProductPage productPage = BaseTest.getHomePage();
+        ProductPage productPage = BaseTestController.getHomePage();
         while (numberOfItemsAddedToChart<numberOfItemsToAddToChart) {
             clickElementByIndex(LIST_PRODUCTS, numberOfItemsAddedToChart);
             productPage.addNumberOfUnitsToProduct();
@@ -45,7 +44,7 @@ public class HomePage extends BaseCommands {
      */
 
     public void userVerifyInBubbleCartNumberOfUnitsAdded() {
-        ProductPage productPage = BaseTest.getHomePage();
+        ProductPage productPage = BaseTestController.getHomePage();
         int numberOfUnitsAddedInCart =  Integer.parseInt(getText(TEXT_UNITS_ADDED_TO_SHOPPING_CART));
         Assert.assertEquals(productPage.getUnitsOfProductAddedToShoppingCart(), numberOfUnitsAddedInCart);
     }

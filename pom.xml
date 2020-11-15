@@ -47,15 +47,9 @@
                         <!--web-->
                         <dev.env>${dev.env}</dev.env>
                         <base.url>${base.url}</base.url>
-                        <mode>${mode}</mode>
-                        <klov>${klov}</klov>
                         <headless>${headless}</headless>
                         <driver.class>${driver.class}</driver.class>
                         <env>${env}</env>
-                        <mode>${mode}</mode>
-                        <label>${LABEL}</label>
-                        <suiteToTest>${SUITETOTEST}</suiteToTest>
-                        <threads>${threads}</threads>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -137,12 +131,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.0.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.iban4j</groupId>
             <artifactId>iban4j</artifactId>
             <version>3.2.1</version>
@@ -169,51 +157,9 @@
             </properties>
         </profile>
         <profile>
-            <id>firefoxMac</id>
-            <properties>
-                <driver.class>firefoxMac</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>chromeWin</id>
-            <properties>
-                <driver.class>chromeWin</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>firefoxWin</id>
-            <properties>
-                <driver.class>firefoxWin</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>chromeMac</id>
-            <properties>
-                <driver.class>chromeMac</driver.class>
-            </properties>
-        </profile>
-        <profile>
             <id>firefoxDocker</id>
             <properties>
                 <driver.class>firefoxDocker</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>ie</id>
-            <properties>
-                <driver.class>ie</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>edge</id>
-            <properties>
-                <driver.class>edge</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>safariMobile</id>
-            <properties>
-                <driver.class>safariMobile</driver.class>
             </properties>
         </profile>
         <profile>
@@ -223,45 +169,15 @@
             </properties>
         </profile>
         <profile>
-            <id>safari</id>
-            <properties>
-                <driver.class>safari</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>iPhone</id>
-            <properties>
-                <driver.class>iPhone</driver.class>
-            </properties>
-        </profile>
-        <profile>
             <id>chromeDocker</id>
             <properties>
                 <driver.class>chromeDocker</driver.class>
             </properties>
         </profile>
         <profile>
-            <id>debug</id>
-            <properties>
-                <mode>debug</mode>
-            </properties>
-        </profile>
-        <profile>
-            <id>klov</id>
-            <properties>
-                <klov>true</klov>
-            </properties>
-        </profile>
-        <profile>
             <id>headless</id>
             <properties>
                 <headless>true</headless>
-            </properties>
-        </profile>
-        <profile>
-            <id>multiple</id>
-            <properties>
-                <driver.class>multiple</driver.class>
             </properties>
         </profile>
     </profiles>

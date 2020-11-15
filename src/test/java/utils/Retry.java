@@ -7,15 +7,11 @@ public class Retry implements IRetryAnalyzer {
 
     private int count = 0;
     private static int maxTry;
-    String mode = System.getProperty("mode");
+
 
     @Override
     public boolean retry(ITestResult iTestResult) {
-        if(mode.equalsIgnoreCase("debug")){
-            maxTry =0;
-        }else{
-            maxTry =0;
-        }
+        maxTry = 2;
         if (!iTestResult.isSuccess()) {                      //Check if test not succeed
             if (count < maxTry) {                            //Check if maxtry count is reached
                 count++;//Increase the maxTry count by 1
