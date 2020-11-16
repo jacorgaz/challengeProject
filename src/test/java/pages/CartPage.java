@@ -20,10 +20,10 @@ public class CartPage extends BaseCommands {
 
     private final By TEXT_PRODUCT_NAME = By.xpath("//*[@data-zta='productName']");
 
+    private final int numberOfItemsToAddToCart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase());
     HashMap<String , Integer> productNameAndUnitsInCart = new HashMap<>();
     ExtentTest extentTest = ExtentReportManager.getExtentTest();
     ProductPage productPage = BaseTestController.getHomePage();
-    private final int numberOfItemsToAddToCart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase());
 
     /**
      * This method is used to retrieve the number of items of each product displayed in shopping cart for later comparison,

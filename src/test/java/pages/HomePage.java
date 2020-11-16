@@ -18,8 +18,8 @@ public class HomePage extends BaseCommands {
     private final By BUTTON_CART = By.id("checkoutBtnCart");
     private final By TEXT_UNITS_ADDED_TO_SHOPPING_CART = By.id("cart_quantity");
 
-    ExtentTest extentTest = ExtentReportManager.getExtentTest();
     private int numberOfItemsAddedToChart=0;
+    ExtentTest extentTest = ExtentReportManager.getExtentTest();
 
     public void userCloseCookiesBanner() {
         clickElement(BUTTON_CLOSE_COOKIES);
