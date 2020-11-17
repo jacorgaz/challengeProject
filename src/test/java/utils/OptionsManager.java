@@ -2,9 +2,9 @@ package utils;
 
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import tests.BaseTest;
+import tests.BaseTestController;
 
-public class OptionsManager extends BaseTest {
+public class OptionsManager extends BaseTestController {
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
@@ -25,16 +25,6 @@ public class OptionsManager extends BaseTest {
             return options;
         }
 
-        if (automation) {
-            //options.setHeadless(true);
-            options.addArguments("chromedriver --whitelisted-ips=");
-            options.addArguments("--headless");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--window-size=1920x1080");
-            options.addArguments("--remote-debugging-port=4444");
-            return options;
-        }
         return options;
     }
 
@@ -52,10 +42,6 @@ public class OptionsManager extends BaseTest {
             return options;
         }
 
-        if (automation) {
-            options.setHeadless(true);
-            return options;
-        }
         return options;
     }
 }
