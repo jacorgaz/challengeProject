@@ -1,0 +1,198 @@
+
+Lift scenarios
+
+Functional Tests
+
+User can call elevator from every floor
+When, the elevator reaches the selected floor its doors are opened at the chosen floor
+User can select any floor from inside
+When the elevator reaches the selected floor its doors are opened at the chosen floor
+Only at ground floor there is light signals informing the floor the elevator is and its direction
+At any floor there is lights signals informing the direction the elevator is heading for
+From inside elevator the chosen floor to go must have its light indicator ON only turn off when reaching the chosen floor.If going to second floor from ground floor someone from outside touches the button at first floor the elevator must stop
+If going to ground floor from second floor someone from outside touches the button at first floor the elevator must stop
+If going to second floor from ground floor if someone from inside touches first floor’s button the elevator must stop at first floor
+If going to ground floor from second floor someone from inside touches first floors button the elevator must stop at first floor.
+If going from ground floor to second floor without selecting first floor from inside or selecting from outside at first floor, the elevator must go directly to second floor
+If going from second floor to ground floor without selecting first floor from inside or selecting from outside at first floor, the elevator must go directly to ground floor
+If from inside while at the floor chosen someone hit the close door button, doors must close after the default time for this feature
+While doors are being closed someone presses the floor button from outside, doors must open automatically
+While doors are being closed someone presses the Open door button from inside doors must open automatically
+If choosing from inside all floor buttons, elevator must stop at every floor.
+
+Security Tests
+
+Doors only open when the floor chose is reached
+While doors are being closed someone pass through laser sensor, doors must be automatically open
+If someone from inside press the alarm button automatically Emergency Services must be called.
+If maximum weight is reached before leaving any floor, a visual and sound signal must alert the passengers.
+Elevator doors are maintained open and lift cannot leave the floor until max weight is not reached.
+Doors opening and closing timing must meet the default time set.
+Elevator must meet the speed limit set while going up and down.
+
+
+
+Automation and test-plan
+
+Log in scenarios
+
+Scenario: User login with a incorrect email and valid password	
+  Given I am on the login page
+  When Enter invalid email
+  And  Enter correct password
+  And Click on login button	
+  Then User cannot  log in and error message must appear
+
+
+  Scenario: User login with a incorrect email format and valid password
+  Given I am on the login page
+  When Enter invalid email format
+  And  Enter correct password
+  And Click on login button	
+  Then User cannot  log in and error message must appear
+  
+
+
+Scenario: User login with a correct email and invalid password	
+  Given I am on the login page
+  When I Enter valid email
+  And I Enter incorrect password
+  And I Click on login button	
+  Then I annot login and error message must appear
+  
+
+Scenario: login with valid credentials
+  Given I am on the login page
+  When I Enter valid email
+  And I Don´t fill in password
+  And I Click on login Button	
+  Then I cannot login and error message must appear
+  
+
+Scenario: User login with empty email field
+  Given I am on the login page
+  When I fill in empty email
+  And I fill in an invalid password
+  And I Click on login Button
+  Then I cannot login and error message must appear
+
+
+Scenario: User login with valid credentials
+  Given I am on the login page
+  When I fill in valid email
+  And I fill in valid password
+  And I click on login Button	
+  Then I should log in
+
+
+Scenario: Recover password with a non registered email
+  Given I am on the login page
+  When I Go to recovery password
+  And Enter a registered email
+  And I Click on send Button	
+  Then I get an error message informing that email does not exist
+
+
+Scenario: Recover password empty email
+  Given I am on the login page
+  When I Go to recovery password
+  And Do not fill in email field
+  And I Click on send Button	
+  Then I get an error message informing that email is Mandatory
+
+
+Scenario: Recovery password successful
+  Given I am on the login page
+  When I Go to recovery password
+  And I Fill in email with a registered email
+  And I Click on send Button	
+  Then Recover Password procedure begins 
+
+
+
+Scenario: Log in with an old password
+  Given I already changed my password
+  When I Log in with and old password 
+  And I Click on login Button	
+  Then I get an error message informing that the credentials are wrong
+
+
+Scenario: Log in with new password
+  Given I already changed my password
+  When I Log in with my bew  password 
+  And I Click on login Button	
+  Then I am able to login
+  
+
+
+
+ Newsletter scenarios
+
+
+Scenario: empty email
+    Given I am on the Newsletter page
+    When I leave email empty
+    And Click on Subscribe button	
+    Then I get´ error message must appear informing email is Mandatory
+
+Scenario: wrong email format 
+    Given I am on the Newsletter page
+    When I fill email with no @
+    And I choose a category 
+    And Click on Subscribe button	
+    Then I get error message must appear informing email format is wrong
+
+
+Scenario: category no selected
+    Given I am on the Newsletter page
+    When I fill a valid email 
+    And I dont choose a category
+    And Click on Subscribe button	
+    Then I get error message must appear informing that a category must be selected
+
+
+Scenario Outline: eating
+  Given there are <start> cucumbers
+  When I fill a valid email 
+  And I select <D> Dogs
+  And I select <C> Cats
+  And I select <F> Fish
+  And I select <B> Birds
+  And I select <LA> Little animals
+  And Click on Subscribe button
+  Then I should receive  a confirmation message
+
+Examples:
+|D| |C| |F| |B||LA|
+Yes	Yes	Yes	Yes	Yes
+Yes	Yes	Yes	Yes	No
+Yes	Yes	Yes	No	Yes
+Yes	Yes	Yes	No	No
+Yes	Yes	No	Yes	Yes 
+Yes	Yes	No	Yes	No
+Yes	Yes	No	No	Yes
+Yes	Yes	No	No	No
+Yes	No	Yes	Yes	Yes
+Yes	No	Yes	Yes	No
+Yes	No	Yes	No	Yes
+Yes	No	Yes	No	No
+Yes	No	No	Yes	Yes
+Yes	No	No	Yes	No
+Yes	No	No	No	Yes
+Yes	No	No	No	No
+No  Yes	Yes	Yes	Yes
+No	Yes	Yes	Yes	No
+No	Yes	Yes	No	Yes
+No	Yes	Yes	No	No
+No	Yes	No	Yes	Yes
+No	Yes	No	Yes	No
+No	Yes	No	No	Yes
+No	Yes	No	No	No
+No	No	Yes	Yes	Yes
+No	No	Yes	Yes	No
+No	No	Yes	No	Yes
+No	No	Yes	No	No
+No	No	No	Yes	Yes
+No	No	No	Yes	No
+No	No	No	No	Yes
+No	No	No	No	No

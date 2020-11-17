@@ -40,19 +40,6 @@ public class DriverFactory {
                     OptionsManager.getChromeOptions();
                     driver.manage().window().maximize();
                     break;
-                case "chromeMobile":
-                    ChromeOptions mobileChromeLinuxOptions = new ChromeOptions();
-                    Map<String, String> mobileEmulation = new HashMap<>();
-                    mobileEmulation.put("deviceName", "Pixel 2");
-                    mobileChromeLinuxOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
-                    mobileChromeLinuxOptions.setCapability("browserName", "chrome");
-                    mobileChromeLinuxOptions.setCapability("version", "latest");
-                    mobileChromeLinuxOptions.setCapability("enableVNC", true);
-                    mobileChromeLinuxOptions.setCapability("enableVideo", true);
-                    driver = new RemoteWebDriver(URI.create(SELENOID_DOCKER_HUB).toURL(),
-                            mobileChromeLinuxOptions);
-                    OptionsManager.getChromeOptions();
-                    break;
                 case "firefoxDocker":
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions firefoxLinux = new FirefoxOptions();
