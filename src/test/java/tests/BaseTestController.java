@@ -6,31 +6,35 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pages.*;
+import pages.CartPage;
+import pages.HomePage;
+import pages.PointsProgramPage;
+import pages.ProductPage;
 import utils.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-import static utils.BaseCommands.getSelenoidVideos;
+import static seleniumSupport.BaseCommands.getSelenoidVideos;
 import static utils.Constants.DOCKER_BROWSERS;
 import static utils.DriverManager.*;
+import static utils.DriverManager.getDriver;
 import static utils.GetScreenShot.capture;
 import static utils.GlobalVariables.setFailExecutionStatus;
 
-public class BaseTest {
+public class BaseTestController {
     private static final ExtentReports EXTENT_REPORTS = new ExtentReports();
     private ExtentTest parentTest;
     private static final String BROWSER_EXECUTION =  PropertyManager.getInstance().getBrowser();
-    private static String url = PropertyManager.getInstance().getUrl();
+    private static final String URL_LANDING = PropertyManager.getInstance().getUrlLanding();
     protected static String headless = PropertyManager.getInstance().getHeadlessAutomation();
     protected static boolean automation = PropertyManager.getInstance().getAutomation();
 
@@ -91,10 +95,10 @@ public class BaseTest {
             createNewDriverInstance(browser);
             System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] ("+ getBrowserName()+Thread.currentThread().getId()+") ==> test "+ ExtentReportManager.getTestName()+context.getName()+ " has started"+ (char)27 + "[39m");
             if(DOCKER_BROWSERS.contains(getBrowserName())){
-                String urlLive = Constants.SELENOID_DOCKER_LIVE_STREAMING+DriverManager.getDriver().getSessionId();
+                String urlLive = Constants.SELENOID_DOCKER_LIVE_STREAMING+ DriverManager.getDriver().getSessionId();
                 System.out.println((char)27 + "[34m"+"•••••• [SELENIUM] (Live Streaming in "+ urlLive);
             }
-            DriverManager.getDriver().navigate().to(url);
+            DriverManager.getDriver().navigate().to(URL_LANDING);
             getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             homePage = new HomePage();
             productPage = new ProductPage();
@@ -159,7 +163,7 @@ public class BaseTest {
     private void createNewDriverInstance(String browser) throws MalformedURLException {
         String mode = System.getProperty("mode");
         String browserToExecute = "";
-        DesiredCapabilities  capabilities = new DesiredCapabilities();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         if(mode==null){
             browserToExecute = BROWSER_EXECUTION;
         }else {
@@ -173,17 +177,5 @@ public class BaseTest {
     @AfterSuite
     public void afterSuite() {
         EXTENT_REPORTS.flush();
-    }
-
-    @AfterClass
-    public void afterClass() {
-        try{
-            if(!getDriver().toString().contains("null")){
-                WebDriver driver = getDriver();
-                driver.quit();
-            }
-        }catch (Exception e){
-            ExtentReportManager.getExtentTest().info("Error driver Quit "+ e);
-        }
     }
 }

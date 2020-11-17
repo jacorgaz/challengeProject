@@ -3,7 +3,8 @@ package pages;
 import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import tests.BaseTest;
+import seleniumSupport.BaseCommands;
+import tests.BaseTestController;
 import utils.*;
 
 import java.io.IOException;
@@ -16,32 +17,10 @@ public class CartPage extends BaseCommands {
      */
 
     private final By TEXT_PRODUCT_NAME = By.xpath("//*[@data-zta='productName']");
-    private final By PRODUCT_TOTAL_PRICE = By.xpath("//*[@class='value' and @role='cell']");
     
     HashMap<String , Integer> productNameAndUnitsInCart = new HashMap<>();
     int numberOfItemsToAddToCart;
 
-
-    /**
-     * This method is used to retrieve the number of items and price from API and compare the
-     *  info with the one displayed on screen
-     */
-
-    /*private void verifyPriceDisplayedIsTheCorrectOne(){
-        String productTotalPrice;
-        numberOfItemsToAddToCart =  Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase());
-
-        double totalPriceDisplayedOnWeb = 0;
-        double totalPriceDisplayedFromAPI = 0;
-
-        for(int i =0; i<numberOfItemsToAddToCart;i++){
-            productTotalPrice = getText(findElementIndex(PRODUCT_TOTAL_PRICE,i))
-                    .replace(",",".")
-                    .replace("€","")
-                    .replaceAll("[\\s|\u00A0]+", "");//Replace all spaces;
-            totalPriceDisplayedOnWeb += Double.parseDouble(productTotalPrice);
-        }
-    }*/
 
     /**
      * This method is used to retrieve the number of items of each product displayed in shopping cart for later comparison,
@@ -62,7 +41,6 @@ public class CartPage extends BaseCommands {
                 .get(index).findElements(PRODUCT_CHILD_THIRD_DESCENDANT)
                 .get(index).findElements(By.tagName("input")).get(0)
                 .getAttribute("value");
-
     }
 
     /**
@@ -73,7 +51,7 @@ public class CartPage extends BaseCommands {
         numberOfItemsToAddToCart =  Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase());
         int productUnits;
         String productName;
-        ProductPage productPage = BaseTest.getHomePage();
+        ProductPage productPage = BaseTestController.getHomePage();
         ExtentTest extentTest = ExtentReportManager.getExtentTest();
 
         for(int i = 0; i< numberOfItemsToAddToCart; i++ ){

@@ -22,5 +22,4 @@ public class RegressionTests extends BaseTestController {
         pointsProgramPage.userVerifyProgramTutorialIsDisplayed();
     }
 
-
 }

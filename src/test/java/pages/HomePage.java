@@ -2,9 +2,11 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import tests.BaseTest;
-import utils.BaseCommands;
+import seleniumSupport.BaseCommands;
+import utils.DriverManager;
 import utils.PropertyManager;
+
+import static tests.BaseTestController.getHomePage;
 
 
 public class HomePage extends BaseCommands {
@@ -24,7 +26,7 @@ public class HomePage extends BaseCommands {
 
     public void userAddProductsToShoppingCart() {
         int numberOfItemsToAddToChart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase()); //Number of products wished in configuration.properties
-        ProductPage productPage = BaseTest.getHomePage();
+        ProductPage productPage = getHomePage();
         while (numberOfItemsAddedToChart<numberOfItemsToAddToChart) {
             clickElementByIndex(LIST_PRODUCTS, numberOfItemsAddedToChart);
             productPage.addNumberOfUnitsToProduct();
@@ -41,7 +43,12 @@ public class HomePage extends BaseCommands {
      */
 
     public void userVerifyInBubbleCartNumberOfUnitsAdded() {
-        ProductPage productPage = BaseTest.getHomePage();
+        ProductPage productPage = getHomePage();
+        String bubbleText;
+        do {
+            bubbleText = getText(TEXT_UNITS_ADDED_TO_SHOPPING_CART);
+        }while (bubbleText.equals(""));
+
         int numberOfUnitsAddedInCart =  Integer.parseInt(getText(TEXT_UNITS_ADDED_TO_SHOPPING_CART));
         Assert.assertEquals(productPage.getUnitsOfProductAddedToShoppingCart(), numberOfUnitsAddedInCart);
     }

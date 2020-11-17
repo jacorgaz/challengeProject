@@ -146,7 +146,7 @@ public class LaunchTests {
     public void tests() throws ClassNotFoundException {
         ArrayList browserList = browserList();
         for (Object browser : browserList) {
-            if (suite.equals("ALL")) {
+            if (suite.equals("Regression")) {
                 testSuites = allSuites;
                 run(browser.toString());
             } else {

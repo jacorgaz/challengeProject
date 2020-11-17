@@ -59,7 +59,7 @@ public class DriverFactory {
                     firefoxLinux.setCapability("browserName", "firefox");
                     firefoxLinux.setCapability("version", "80.0");
                     firefoxLinux.setCapability("enableVNC", true);
-                    firefoxLinux.setCapability("enableVideo", false);
+                    firefoxLinux.setCapability("enableVideo", true);
                     driver = new RemoteWebDriver(URI.create(SELENOID_DOCKER_HUB).toURL(),
                             firefoxLinux);
                     driver.manage().window().maximize();

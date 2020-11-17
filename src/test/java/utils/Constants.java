@@ -3,7 +3,7 @@ package utils;
 import com.google.common.collect.ImmutableList;
 
 public class Constants {
-    public static final String SELENOID_DOCKER_VIDEO = "http://192.168.1.110:4444";
+    public static final String SELENOID_DOCKER_VIDEO = "http://192.168.1.110:8080/video/";
     public static final String SELENOID_DOCKER_LIVE_STREAMING = " http://192.168.1.110:8080/#/sessions/";
     public static final String SELENOID_DOCKER_HUB = "http://192.168.1.110:4444/wd/hub";
 

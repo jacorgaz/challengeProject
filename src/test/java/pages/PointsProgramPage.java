@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import seleniumSupport.BaseCommands;
 import utils.*;
 
 import static utils.Constants.PROGRAM_POINTS_IMAGE_TEXT;
@@ -36,6 +37,10 @@ public class PointsProgramPage extends BaseCommands {
         Assert.assertTrue(PROGRAM_POINTS_STEP_DESCRIPTION.contains(stepDescription));
     }
 
+    private void verifyHeaderText(){
+        Assert.assertEquals(getText(TEXT_TUTORIAL_HEADER), "How zooPoints work");
+    }
+
     private void verifyStepTwoInfoIsDisplayed(){
         imageText= getText(findElementIndex(GRID_TUTORIAL,1).findElement(TAG_IMAGE_TEXT));
         stepDescription= getText(findElementIndex(GRID_TUTORIAL,1).findElement(TAG_STEP_DESCRIPTION));
@@ -67,8 +72,8 @@ public class PointsProgramPage extends BaseCommands {
      * image description and step description.
      */
     public void userVerifyProgramTutorialIsDisplayed() {
-        DriverManager.getDriver().get("https://www.zooplus.com/bonuspoints/overview");
-        Assert.assertEquals(getText(TEXT_TUTORIAL_HEADER), "How zooPoints work");
+        goToURL(PropertyManager.getUrlZooPoints());
+        verifyHeaderText();
         verifyStepOneInfoIsDisplayed();
         verifyStepTwoInfoIsDisplayed();
         verifyStepThreeInfoIsDisplayed();
