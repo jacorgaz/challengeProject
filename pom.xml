@@ -48,7 +48,6 @@
                         <dev.env>${dev.env}</dev.env>
                         <base.url>${base.url}</base.url>
                         <mode>${mode}</mode>
-                        <klov>${klov}</klov>
                         <headless>${headless}</headless>
                         <driver.class>${driver.class}</driver.class>
                         <env>${env}</env>
@@ -169,12 +168,6 @@
             <id>firefoxDocker</id>
             <properties>
                 <driver.class>firefoxDocker</driver.class>
-            </properties>
-        </profile>
-        <profile>
-            <id>chromeMobile</id>
-            <properties>
-                <driver.class>chromeMobile</driver.class>
             </properties>
         </profile>
         <profile>
