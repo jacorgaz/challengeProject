@@ -11,12 +11,13 @@ public class PropertyManager {
     private static PropertyManager instance;
     private static final Object lock = new Object();
     private static String propertyFilePath = System.getProperty("user.dir") + "/src/test/java/resources/configuration.properties";
-    private static String videoPath = System.getProperty("user.dir") + "/src/test/java/resources/video.properties";
-    private static String environment;
+    private static String numberOfItemsToPurchase;
     private static String browser;
     private static String headless = System.getProperty("headless");
     private static String threads;
-    private static String url;
+    private static String urlLanding;
+    private static String urlZooPoints;
+
     private String suite;
     private String label;
     private static boolean automation;
@@ -36,36 +37,35 @@ public class PropertyManager {
     private void loadData() {
         //Declare a properties object
         Properties prop = new Properties();
+
         //Read configuration.properties file
         try {
-            prop.load(new FileInputStream(videoPath));
+            prop.load(new FileInputStream(propertyFilePath));
+            //prop.load(this.getClass().getClassLoader().getResourceAsStream("configuration.properties"));
         } catch (IOException e) {
             System.out.println("Configuration properties file cannot be found");
         }
         //Get profile from pom
         String mode = System.getProperty("mode");
 
-        if(mode.equalsIgnoreCase("debug")){
+        if(mode==null){
             browser =  System.getProperty("driver.class");
-            //browser =  getBrow();
             if(headless==null){
                 headless= "false";
             }
-            environment = System.getProperty("dev.env");
-            url = System.getProperty("base.url");
+            numberOfItemsToPurchase = prop.getProperty("numberOfItemsToPurchase");
+            urlLanding = prop.getProperty("urlLanding");
+            urlZooPoints = prop.getProperty("urlZooPoints");
         }else {
+            numberOfItemsToPurchase = prop.getProperty("numberOfItemsToPurchase");
             automation = true;
             browser =  System.getProperty("driver.class");
-            url = System.getProperty("base.url");
-            environment = System.getProperty("dev.env");
+            urlLanding = prop.getProperty("urlLanding");
+            urlZooPoints = prop.getProperty("urlZooPoints");
             suite = System.getProperty("suiteToTest");
             label = System.getProperty("label");
-            threads = System.getProperty("threads");
+            threads = prop.getProperty("threads");
         }
-    }
-
-    public String getEnvironment() {
-        return environment;
     }
 
     public String getHeadlessAutomation() {
@@ -76,8 +76,12 @@ public class PropertyManager {
         return automation;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUrlLanding() {
+        return urlLanding;
+    }
+
+    public static String getUrlZooPoints() {
+        return urlZooPoints;
     }
 
     public String getBrowser() {
@@ -94,15 +98,8 @@ public class PropertyManager {
         return suite;
     }
 
-    /**
-     * @param browser is retrieved from testng xml while parallel execution
-     * For debug browser is retrieved from om xml
-     */
-    public String getBrowseName(String browser){
-        if (automation){
-            return browser;
-        }else {
-            return PropertyManager.getInstance().getBrowser();
-        }
+    public  String getNumberOfItemsToPurchase() {
+        return numberOfItemsToPurchase;
     }
+
 }
