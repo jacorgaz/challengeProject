@@ -12,7 +12,7 @@ firefoxMac  |
 2. In **Maven profile** select whether running tests in headless mode
 3. Go to src/test/java/tests/RegressionTests.java and select the tests we want to run
 
-We can watch the running tests live streaming from *Run* or *Debug* console by clicking on the URL generated.
+**We can watch the running tests live streaming from *Run* or *Debug* console by clicking on the URL generated.**
 
 
 ## Run tests from Maven:
@@ -27,6 +27,8 @@ firefoxMac  |
 
 **Headless off and multiple browsers-**: ```mvn clean test -q  -Dsurefire.suiteXmlFiles=testSuites/launchTests.xml  -Dheadless=false -Dlabel=none -Ddriver.class=chromeDocker_firefoxDocker -DsuiteToTest=Regression```
 
+**We can watch the running tests live streaming from the terminal console by clicking on the URL generated.**
+
 ## Check test results:
 
 Report is generated under *TestOutput/SuiteTestReport.html*.
@@ -36,3 +38,8 @@ To see the screenshots taken during the execution move folder **projectPath/scre
 Open SuiteTestReport.html preferably with Chrome
 
 The results of the tests and video of the execution along with screen captures and info is displayed
+
+
+# Testplans
+
+Test plan file is located *src/test/java/tests/TestPlan*
