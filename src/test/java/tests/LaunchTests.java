@@ -18,30 +18,13 @@ import static utils.Constants.TESTCLASSES;
 public class LaunchTests {
 
     static HashMap<String, ArrayList<String>> classAndTestsIncluded = new HashMap<>();
+    static ArrayList<String> browsers = new ArrayList<>();
     static String suite = PropertyManager.getInstance().getSuite();
-    //static String suite = "ALL";
     static String selectedBrowsers = PropertyManager.getInstance().getBrowser();
-    //static String selectedBrowsers = "chromeDocker_firefoxDocker";
-    //static ArrayList<String> browser;
     static String label = PropertyManager.getInstance().getLabel();
-    //static String label = "none";
     static String threads = PropertyManager.getInstance().getThreads();
-    //static String threads = "2";
     static String[] allSuites = TESTCLASSES;
     static String[] testSuites;
-    static ArrayList<String> browsers = new ArrayList<>();
-
-
-    /*public static String getBrow() {
-        return brow;
-    }
-
-    public void setBrow(String browser) {
-        brow = browser;
-    }
-
-    private static String brow;*/
-
 
     private static Class getClass(String className) {
         try {
@@ -125,7 +108,7 @@ public class LaunchTests {
         List<XmlSuite> suites = new ArrayList<>();
         XmlSuite suite = new XmlSuite();
         suite.setName("Test-class "+browsers);
-        suite.setParallel(XmlSuite.ParallelMode.TESTS);
+        suite.setParallel(XmlSuite.ParallelMode.CLASSES);
         setTestsToExecuteInEachTestClass();
         XmlTest test = new XmlTest();
         Map<String,String> testngParams = new HashMap<String,String>();
@@ -137,10 +120,8 @@ public class LaunchTests {
             List<XmlClass> classes = new ArrayList<>();
             List<XmlInclude> includeMethods = new ArrayList<>();
             XmlClass testClass = new XmlClass(getClass(testSuite).getName());
-            //XmlClass testClass = new XmlClass("tests.Enfermeras.DummyTest");
             for (String methods : getMethodsInClass(testSuite)) {
                 includeMethods.add(new XmlInclude(methods));
-                 //includeMethods.add(new XmlInclude("test_TC_002_Validaciones_habitaciones"));
                 testClass.setIncludedMethods(includeMethods);
             }
             classes.add(testClass);
@@ -165,9 +146,7 @@ public class LaunchTests {
     public void tests() throws ClassNotFoundException {
         ArrayList browserList = browserList();
         for (Object browser : browserList) {
-            //setBrow(browser.toString());
-            System.out.println("ERSTAMOS COM "+browser);
-            if (suite.equals("ALL")) {
+            if (suite.equals("Regression")) {
                 testSuites = allSuites;
                 run(browser.toString());
             } else {

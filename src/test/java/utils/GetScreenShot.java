@@ -6,7 +6,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import tests.BaseTest;
+import tests.BaseTestController;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
-public class GetScreenShot extends BaseTest {
+public class GetScreenShot extends BaseTestController {
 
     private static BufferedImage resize(BufferedImage img, int height, int width) {
         Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
