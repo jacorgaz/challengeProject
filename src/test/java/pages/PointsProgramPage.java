@@ -1,16 +1,11 @@
 package pages;
 
-import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import tests.BaseTest;
-import utils.DriverManager;
-import utils.ExtentReportManager;
-import utils.GetScreenShot;
-import utils.PropertyManager;
+import utils.*;
 
-import java.io.IOException;
-import java.util.HashMap;
+import static utils.Constants.PROGRAM_POINTS_IMAGE_TEXT;
+import static utils.Constants.PROGRAM_POINTS_STEP_DESCRIPTION;
 
 
 public class PointsProgramPage extends BaseCommands {
@@ -22,37 +17,45 @@ public class PointsProgramPage extends BaseCommands {
     private final By TEXT_NUMBER_STEP = By.xpath("//*[@class='loy-bppo-benefitsContainer__roundNumber']");
     private final By IMAGE_STEP= By.xpath("//*[@class='loy-bppo-benefitsContainer__diagramImg']");
     private final By GRID_TUTORIAL = By.xpath("//*[@data-ui-grid='12 4@md']");
+    private final By TAG_IMAGE_TEXT = By.tagName("h5");
+    private final By TAG_STEP_DESCRIPTION = By.tagName("p");
 
-
-    ExtentTest extentTest = ExtentReportManager.getExtentTest();
-    String imageText;
-    String stepDescription;
+    private String imageText;
+    private String stepDescription;
+    private String stepNumber;
+    private String stepNumberExpected;
 
     private void verifyStepOneInfoIsDisplayed(){
-        imageText= getText(findElementIndex(GRID_TUTORIAL,0).findElement(By.tagName("h5")));
-        stepDescription= getText(findElementIndex(GRID_TUTORIAL,0).findElement(By.tagName("p")));
-        Assert.assertTrue(getText(findElementIndex(TEXT_NUMBER_STEP,0)).equalsIgnoreCase("1"));
+        imageText= getText(findElementIndex(GRID_TUTORIAL,0).findElement(TAG_IMAGE_TEXT));
+        stepDescription= getText(findElementIndex(GRID_TUTORIAL,0).findElement(TAG_STEP_DESCRIPTION));
+        stepNumber=getText(findElementIndex(TEXT_NUMBER_STEP,0));
+        stepNumberExpected ="1";
+        Assert.assertTrue(stepNumber.equalsIgnoreCase(stepNumberExpected));
         Assert.assertTrue(isDisplayed(IMAGE_STEP));
-        Assert.assertEquals(imageText, "Collect with each purchase");
-        Assert.assertEquals(stepDescription, "It's FREE! Registered customers automatically earn zooPoints on every purchase.");
+        Assert.assertTrue(PROGRAM_POINTS_IMAGE_TEXT.contains(imageText));
+        Assert.assertTrue(PROGRAM_POINTS_STEP_DESCRIPTION.contains(stepDescription));
     }
 
     private void verifyStepTwoInfoIsDisplayed(){
-        imageText= getText(findElementIndex(GRID_TUTORIAL,1).findElement(By.tagName("h5")));
-        stepDescription= getText(findElementIndex(GRID_TUTORIAL,1).findElement(By.tagName("p")));
-        Assert.assertTrue(getText(findElementIndex(TEXT_NUMBER_STEP,1)).equalsIgnoreCase("2"));
+        imageText= getText(findElementIndex(GRID_TUTORIAL,1).findElement(TAG_IMAGE_TEXT));
+        stepDescription= getText(findElementIndex(GRID_TUTORIAL,1).findElement(TAG_STEP_DESCRIPTION));
+        stepNumber=getText(findElementIndex(TEXT_NUMBER_STEP,1));
+        stepNumberExpected ="2";
+        Assert.assertTrue(stepNumber.equalsIgnoreCase(stepNumberExpected));
         Assert.assertTrue(isDisplayed(IMAGE_STEP));
-        Assert.assertEquals(imageText, "They soon add up");
-        Assert.assertEquals(stepDescription, "Easy calculation €1.00 = 1 zooPoint. zooPoints are credited after order has been paid.");
+        Assert.assertTrue(PROGRAM_POINTS_IMAGE_TEXT.contains(imageText));
+        Assert.assertTrue(PROGRAM_POINTS_STEP_DESCRIPTION.contains(stepDescription));
     }
 
     private void verifyStepThreeInfoIsDisplayed(){
-        imageText= getText(findElementIndex(GRID_TUTORIAL,2).findElement(By.tagName("h5")));
-        stepDescription= getText(findElementIndex(GRID_TUTORIAL,2).findElement(By.tagName("p")));
-        Assert.assertTrue(getText(findElementIndex(TEXT_NUMBER_STEP,2)).equalsIgnoreCase("3"));
+        imageText= getText(findElementIndex(GRID_TUTORIAL,2).findElement(TAG_IMAGE_TEXT));
+        stepDescription= getText(findElementIndex(GRID_TUTORIAL,2).findElement(TAG_STEP_DESCRIPTION));
+        stepNumber=getText(findElementIndex(TEXT_NUMBER_STEP,2));
+        stepNumberExpected ="3";
+        Assert.assertTrue(stepNumber.equalsIgnoreCase(stepNumberExpected));
         Assert.assertTrue(isDisplayed(IMAGE_STEP));
-        Assert.assertEquals(imageText, "Redeem your zooPoints");
-        Assert.assertEquals(stepDescription, "Choose your free zooPoints Reward in our Rewards Shop and add it to your order.");
+        Assert.assertTrue(PROGRAM_POINTS_IMAGE_TEXT.contains(imageText));
+        Assert.assertTrue(PROGRAM_POINTS_STEP_DESCRIPTION.contains(stepDescription));
     }
 
 

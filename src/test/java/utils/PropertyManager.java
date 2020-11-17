@@ -48,9 +48,8 @@ public class PropertyManager {
         //Get profile from pom
         String mode = System.getProperty("mode");
 
-        if(mode.equalsIgnoreCase("debug")){
+        if(mode==null){
             browser =  System.getProperty("driver.class");
-            //browser =  getBrow();
             if(headless==null){
                 headless= "false";
             }
@@ -58,13 +57,14 @@ public class PropertyManager {
             environment = System.getProperty("dev.env");
             url = System.getProperty("base.url");
         }else {
+            numberOfItemsToPurchase = prop.getProperty("numberOfItemsToPurchase");
             automation = true;
             browser =  System.getProperty("driver.class");
             url = System.getProperty("base.url");
             environment = System.getProperty("dev.env");
             suite = System.getProperty("suiteToTest");
             label = System.getProperty("label");
-            threads = System.getProperty("threads");
+            threads = prop.getProperty("threads");
         }
     }
 

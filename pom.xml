@@ -55,7 +55,6 @@
                         <mode>${mode}</mode>
                         <label>${LABEL}</label>
                         <suiteToTest>${SUITETOTEST}</suiteToTest>
-                        <threads>${threads}</threads>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

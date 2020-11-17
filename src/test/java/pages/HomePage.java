@@ -1,13 +1,10 @@
 package pages;
 
-import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import tests.BaseTest;
-import utils.ExtentReportManager;
-import utils.GetScreenShot;
+import utils.BaseCommands;
 import utils.PropertyManager;
-import java.io.IOException;
 
 
 public class HomePage extends BaseCommands {
@@ -17,17 +14,15 @@ public class HomePage extends BaseCommands {
     private final By LIST_PRODUCTS = By.xpath("//*[contains(@class, 'product-box lslide')]");
     private final By BUTTON_CLOSE_COOKIES = By.xpath("//*[@class='close__banner icon-close']");
     private final By BUTTON_CART = By.id("checkoutBtnCart");
-    private final By TEXT_UNITS_ADDED_TO_SHOPPING_CART = By.id("cart_quantity");
+    private final By TEXT_UNITS_ADDED_TO_SHOPPING_CART = By.xpath("//*[@class='cart-articleCount']");
 
-    ExtentTest extentTest = ExtentReportManager.getExtentTest();
     private int numberOfItemsAddedToChart=0;
 
     public void userCloseCookiesBanner() {
         clickElement(BUTTON_CLOSE_COOKIES);
     }
 
-
-    public void userAddProductsToShoppingCart() throws IOException {
+    public void userAddProductsToShoppingCart() {
         int numberOfItemsToAddToChart = Integer.parseInt(PropertyManager.getInstance().getNumberOfItemsToPurchase()); //Number of products wished in configuration.properties
         ProductPage productPage = BaseTest.getHomePage();
         while (numberOfItemsAddedToChart<numberOfItemsToAddToChart) {
@@ -37,6 +32,7 @@ public class HomePage extends BaseCommands {
             numberOfItemsAddedToChart++;
             navigateBack();
         };
+
     }
 
     /**

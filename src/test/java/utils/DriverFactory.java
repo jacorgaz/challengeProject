@@ -64,6 +64,11 @@ public class DriverFactory {
                             firefoxLinux);
                     driver.manage().window().maximize();
                     break;
+                case "firefoxMac":
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver(OptionsManager.getFirefoxOptions());
+                    driver.manage().window().maximize();
+                    break;
                 default:
                     setFailExecutionStatus(true);
                     ExtentReportManager.getExtentTest().info("Browser has not been found  " + browser);

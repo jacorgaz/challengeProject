@@ -6,6 +6,7 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
@@ -19,7 +20,7 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-import static pages.BaseCommands.getSelenoidVideos;
+import static utils.BaseCommands.getSelenoidVideos;
 import static utils.Constants.DOCKER_BROWSERS;
 import static utils.DriverManager.*;
 import static utils.GetScreenShot.capture;
@@ -159,7 +160,7 @@ public class BaseTest {
         String mode = System.getProperty("mode");
         String browserToExecute = "";
         DesiredCapabilities  capabilities = new DesiredCapabilities();
-        if(mode.equalsIgnoreCase("debug")){
+        if(mode==null){
             browserToExecute = BROWSER_EXECUTION;
         }else {
             browserToExecute=browser;
@@ -172,5 +173,17 @@ public class BaseTest {
     @AfterSuite
     public void afterSuite() {
         EXTENT_REPORTS.flush();
+    }
+
+    @AfterClass
+    public void afterClass() {
+        try{
+            if(!getDriver().toString().contains("null")){
+                WebDriver driver = getDriver();
+                driver.quit();
+            }
+        }catch (Exception e){
+            ExtentReportManager.getExtentTest().info("Error driver Quit "+ e);
+        }
     }
 }

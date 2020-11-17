@@ -1,4 +1,4 @@
-package pages;
+package utils;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;

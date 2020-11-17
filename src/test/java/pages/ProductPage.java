@@ -1,6 +1,8 @@
 package pages;
 
 import org.openqa.selenium.By;
+import utils.BaseCommands;
+
 import java.util.HashMap;
 
 
