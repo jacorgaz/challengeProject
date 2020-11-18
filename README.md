@@ -4,24 +4,23 @@
 
 Available browsers  |
 ------------- |
-firefoxDocker  |
-chromeDocker  |
-firefoxMac  |
+firefox  |
+chrome   |
 
 1. In **Maven profile** select a browser (Only one can be run)
 2. In **Maven profile** select whether running tests in headless mode
-3. Go to src/test/java/tests/RegressionTests.java and select the tests we want to run
+3. Go to src/test/java/tests/PointsProgramTest.java to run zooPoints programm tests
+4. Go to src/test/java/tests/AddCartTests.java to run articles to the cart tests
 
 **We can watch the running tests live streaming from *Run* or *Debug* console by clicking on the URL generated.**
 
 
 ## Run tests from Maven:
 
-Available browsers |
+Available browsers  |
 ------------- |
-firefoxDocker  |
-chromeDocker  |
-firefoxMac  |
+firefox  |
+chrome   |
 
 **Headless on and one browser-**: ```mvn clean test -q  -Dsurefire.suiteXmlFiles=testSuites/launchTests.xml  -Dheadless=true -Dlabel=none -Ddriver.class=chromeDocker -DsuiteToTest=Regression```
 
@@ -31,15 +30,20 @@ firefoxMac  |
 
 ## Check test results:
 
-Report is generated under *TestOutput/SuiteTestReport.html*.
-
-To see the screenshots taken during the execution move folder **projectPath/screenshots** into **projectPath/TestOutput** folder.
+Report is generated under ./extentReportTestOuput/SuiteTestReport.html*.
 
 Open SuiteTestReport.html preferably with Chrome
 
-The results of the tests and video of the execution along with screen captures and info is displayed
 
 
-# Testplans
+#  Lift scenarios
 
-Test plan file is located *src/test/java/tests/TestPlan*
+Test plan file is located *src/test/java/tests/LiftTestPlan*
+
+#  login feature scenarios
+
+Test plan file is located *src/test/java/tests/LoginTestPlan*
+
+#  newsletter feature  feature scenarios
+
+Test plan file is located *src/test/java/tests/NewsletterTestPlan*
